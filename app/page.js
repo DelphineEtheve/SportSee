@@ -1,6 +1,8 @@
 import Image from "next/image";
 import mockSportsee from "./data/mockSportsee.json";
 import styles from "./page.module.css";
+import Link from 'next/link'
+
 
 export default function Home() {
   
@@ -21,7 +23,8 @@ export default function Home() {
           <h1>
             Bienvenue dans le projet sportsee
           </h1>
-             <p>Fréquence cardiaque moyenne : {averageHeartRate} bpm<pre>{JSON.stringify(heartRateData, null, 2)}</pre></p>
+             
+            <Link href="/connexion">Se connecter</Link>
         </div>
       </main>
     </div>
