@@ -17,6 +17,17 @@
   },
   "userActivity": [
      {
+        "date": "2024-12-29",
+        "distance": 6,
+        "duration": 40,
+        "heartRate": {
+            "min": 140,
+            "max": 178,
+            "average": 163
+        },
+        "caloriesBurned": 422
+    },
+     {
         "date": "2025-01-04",
         "distance": 5.8,
         "duration": 38,

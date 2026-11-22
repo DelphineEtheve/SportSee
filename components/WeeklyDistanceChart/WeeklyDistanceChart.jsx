@@ -1,0 +1,32 @@
+'use client'
+
+import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from 'recharts'
+
+export default function WeeklyDistanceChart({ data }) {
+    const totalDistance = data.reduce((total, week) => {
+        return total + week.distance
+    }, 0)
+
+    const averageDistance = totalDistance / data.length
+ 
+    return (
+    <section>
+
+      <h2>Distance des quatre dernières semaines</h2>
+        <p>Distance moyenne : {averageDistance.toFixed(2)} km</p>
+        
+      <ResponsiveContainer width="100%" height={240}>
+        <BarChart data={data}>
+          <XAxis dataKey="week" />
+          <YAxis unit=" km" />
+          <Bar 
+            dataKey="distance" 
+            fill="#b4b8ff" 
+            barSize={16} 
+            radius={8} 
+        />
+        </BarChart>
+      </ResponsiveContainer>
+    </section>
+  )
+}
