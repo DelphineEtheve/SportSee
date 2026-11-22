@@ -12,9 +12,10 @@ export default function WeeklyDistanceChart({ data }) {
     return (
     <section>
 
-      <h2>Distance des quatre dernières semaines</h2>
-        <p>Distance moyenne : {averageDistance.toFixed(2)} km</p>
-        
+      
+        <h2>{averageDistance.toFixed(2)} km</h2>
+        <p>Total des kilomètres 4 dernières semaines</p>
+
       <ResponsiveContainer width="100%" height={240}>
         <BarChart data={data}>
           <XAxis dataKey="week" />

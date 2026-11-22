@@ -1,5 +1,6 @@
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
+import styles from './page.module.css'
 import { PreviousWeekButton, WeekOffsetDisplay } from '@/components/ActivityPeriodTest/ActivityPeriodTest'
 import HeartRateChart from '@/components/HeartRateChart/HeartRateChart'
 import mockSportsee from "../data/mockSportsee.json";
@@ -50,6 +51,7 @@ export default async function DashboardPage() {
   { week: 'S4', start: '2024-12-30', end: '2025-01-05' },
 ]
 
+
   const weeklyDistanceData = weeks.map(({ week, start, end }) => {
     const sessions = userActivity.filter(
       (session) => session.date >= start && session.date <= end,
@@ -65,13 +67,9 @@ export default async function DashboardPage() {
     return total + session.distance;
   }, 0);
 
+  // Données pour le graphique de la fréquence cardiaque
   const averageHeartRate = userActivity[0].heartRate.average; 
-  const heartRateData = userActivity.map((session) => ({
-    date: session.date,
-    heartAverageRate: session.heartRate.average,
-    heartMaxRate: session.heartRate.max,
-    heartMinRate: session.heartRate.min,
-  }));
+  
 
   // Données pour le graphique des courses hebdomadaires
   const weeklyGoal = 6;
@@ -83,32 +81,67 @@ export default async function DashboardPage() {
       session.date >= selectedWeek.start && session.date <= selectedWeek.end,
   )
 
+  const heartRateData = weeklySessions.map((session) => ({
+    date: session.date,
+    heartAverageRate: session.heartRate.average,
+    heartMaxRate: session.heartRate.max,
+    heartMinRate: session.heartRate.min,
+  }));
+
+
   const completedRuns = weeklySessions.length
 
+  // Données pour les cartes de durée et de distance
+  const weeklyDuration = weeklySessions.reduce(
+  (total, session) => total + session.duration,
+  0,
+)
+
+const weeklyDistance = weeklySessions.reduce(
+  (total, session) => total + session.distance,
+  0,
+)
   return (
     <div>
       <h1>Mon tableau de bord</h1>
       
       <PreviousWeekButton />
       <WeekOffsetDisplay />
+      <div className={styles.performanceCharts}>
+       <div className={styles.weeklyCard}> 
+          <WeeklyDistanceChart 
+            data={weeklyDistanceData} 
+          />
+        </div>
+        <div className={styles.weeklyCard}>
+          <HeartRateChart 
+            data={heartRateData} 
+          />
+        </div>
+      </div>
+      
 
-      <WeeklyDistanceChart 
-        data={weeklyDistanceData} 
-      />
-      <p>Distance de la session S3 : {weeklyDistanceData[2]?.distance || 0} km</p>
-      <p>Distance de la session S4 : {weeklyDistanceData[3]?.distance || 0} km</p>
-      <p>Distance totale du mock : {totalDistance} km</p>
+      <div className={styles.weeklyRunsContainer}>
+        <div className={styles.weeklyCard}>
+          <WeeklyRunsChart 
+            completedRuns={completedRuns} 
+            goal={weeklyGoal} 
+          />      
+        </div>
+      
 
-      <HeartRateChart 
-        data={heartRateData} 
-      />
-
-
-      <WeeklyRunsChart 
-        completedRuns={completedRuns} 
-        goal={weeklyGoal} 
-      />
+        <div className={styles.weeklyStats}>
+          <div className={styles.weeklyCard}> 
+            <h3>Durée de l'activité </h3>
+            <p>{weeklyDuration} minutes</p>
+          </div>
+          <div className={styles.weeklyCard}>
+            <h3>Distance</h3>
+            <p>{weeklyDistance} km</p>
+          </div>
+        </div>
+      </div>
     </div>
-  )
 
-}
+
+)}

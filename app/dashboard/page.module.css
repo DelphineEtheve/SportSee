@@ -1,0 +1,22 @@
+.performanceCharts {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 5fr);
+  gap: 24px;
+}
+.weeklyRunsContainer {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 5fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.weeklyStats {
+  display: grid;
+  gap: 16px;
+}
+
+.weeklyCard {
+  background-color: white;
+  border-radius: 12px;
+  padding: 20px;
+}
