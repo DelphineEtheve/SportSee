@@ -2,10 +2,11 @@ import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import styles from './page.module.css'
 import { PreviousWeekButton, WeekOffsetDisplay } from '@/components/ActivityPeriodTest/ActivityPeriodTest'
-import HeartRateChart from '@/components/HeartRateChart/HeartRateChart'
+import HeartRateByWeek from '@/components/HeartRateByWeek/HeartRateByWeek'
 import mockSportsee from "../data/mockSportsee.json";
 import WeeklyRunsChart from '@/components/WeeklyRunsChart/WeeklyRunsChart'
 import WeeklyDistanceChart from '@/components/WeeklyDistanceChart/WeeklyDistanceChart'
+import WeeklyDistanceByPeriod from '@/components/WeeklyDistanceByPeriod/WeeklyDistanceByPeriod'
 
 
 
@@ -49,7 +50,11 @@ export default async function DashboardPage() {
   { week: 'S2', start: '2024-12-16', end: '2024-12-22' },
   { week: 'S3', start: '2024-12-23', end: '2024-12-29' },
   { week: 'S4', start: '2024-12-30', end: '2025-01-05' },
-]
+  ]
+  const distanceWeeks = [
+    { start: '2024-12-02', end: '2024-12-08' },
+    ...weeks,
+  ]
 
 
   const weeklyDistanceData = weeks.map(({ week, start, end }) => {
@@ -109,14 +114,16 @@ const weeklyDistance = weeklySessions.reduce(
       <WeekOffsetDisplay />
       <div className={styles.performanceCharts}>
        <div className={styles.weeklyCard}> 
-          <WeeklyDistanceChart 
-            data={weeklyDistanceData} 
-          />
+         <WeeklyDistanceByPeriod 
+          weeks={distanceWeeks} 
+          sessions={userActivity} 
+        />
         </div>
         <div className={styles.weeklyCard}>
-          <HeartRateChart 
-            data={heartRateData} 
-          />
+          <HeartRateByWeek 
+            weeks={weeks} 
+            sessions={userActivity} 
+          /> 
         </div>
       </div>
       
@@ -142,6 +149,5 @@ const weeklyDistance = weeklySessions.reduce(
         </div>
       </div>
     </div>
-
 
 )}
