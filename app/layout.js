@@ -1,4 +1,5 @@
 import { Geist, Geist_Mono } from "next/font/google";
+import ActivityPeriodProvider from "@/context/ActivityPeriodContext";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -18,8 +19,12 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
-      <body>{children}</body>
+    <html lang="fr" className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body>
+        <ActivityPeriodProvider>
+          {children}
+        </ActivityPeriodProvider>
+      </body>
     </html>
   );
 }
