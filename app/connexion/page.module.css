@@ -1,0 +1,48 @@
+.loginPage {
+  display: grid;
+  grid-template-columns: 44% 56%;
+  min-height: 100dvh;
+}
+
+.loginPanel {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 32px;
+  padding: 32px clamp(24px, 7vw, 100px);
+  background-color: #f1f2fc;
+}
+
+.logo {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.loginCard {
+  align-self: center;
+  width: 100%;
+  max-width: 398px;
+  box-sizing: border-box;
+  padding: 40px 40px 80px;
+  border-radius: 20px;
+  background-color: #fff;
+}
+
+.loginCard h1 {
+  margin: 0 0 24px;
+  color: #1018ef;
+  font-size: 1.5rem;
+  line-height: 1.2;
+}
+
+.loginCard h2 {
+  margin: 0 0 20px;
+  font-size: 1.125rem;
+}
+
+.hero {
+  background-color: #dce0f4;
+  background-image: url('/images/photo_login_coureurs.jpg');
+  background-position: center;
+  background-size: cover;
+}

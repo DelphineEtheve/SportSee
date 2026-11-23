@@ -28,23 +28,32 @@ async function handleSubmit(event) {
 
 return(
     <form className={styles.form} onSubmit={handleSubmit}>
-        <label htmlFor="username">Nom d'utilisateur</label>
-        <input
-            id="username"
-            name="username"
-            type="text"
-            required
-        />
-        <label htmlFor="password">Mot de passe</label>
-        <input
-            id="password" 
-            name="password"
-            type="password"
-            required
-        />
-        <button type="submit">
+        <div className={styles.field}>
+            <label htmlFor="username">Nom d'utilisateur</label>
+            <input
+                id="username"
+                name="username"
+                type="text"
+                autoComplete="username"
+                required
+            />
+        </div>
+        <div className={styles.field}>
+            <label htmlFor="password">Mot de passe</label>
+            <input
+                id="password"
+                name="password"
+                type="password"
+                autoComplete="current-password"
+                required
+            />
+        </div>
+
+        <button type="submit" className={styles.submitButton}>
             Se connecter
         </button>
         {errorMessage && <p className={styles.error}>{errorMessage}</p>}
+
+        <p className={styles.info}> Mot de passe oublié ?</p>
     </form>
 )}
