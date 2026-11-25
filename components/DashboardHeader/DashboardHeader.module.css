@@ -1,0 +1,54 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px 24px;
+  width: 100%;
+  max-width: 1120px;
+  margin-inline: auto;
+  padding: 32px 24px;
+  box-sizing: border-box;
+}
+
+.logo {
+  display: block;
+  height: auto;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 24px;
+  padding: 12px 24px;
+  border-radius: 999px;
+  background-color: #fff;
+  font-size: 0.875rem;
+}
+
+.nav a {
+  color: #111111;
+  text-decoration: none;
+}
+
+.nav a:hover,
+.nav a:focus-visible {
+  color: #0B23F4;
+  text-decoration: none;
+}
+
+.nav button {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #111111;
+  font: inherit;
+  opacity: 1;
+}
+
+.nav .logout {
+  padding-left: 20px;
+  border-left: 1px solid #cdd1ff;
+  color: #0B23F4;
+}

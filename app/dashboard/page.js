@@ -1,6 +1,7 @@
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import styles from './page.module.css'
+import DashboardHeader from '@/components/DashboardHeader/DashboardHeader'
 import { PreviousWeekButton, WeekOffsetDisplay } from '@/components/ActivityPeriodTest/ActivityPeriodTest'
 import HeartRateByWeek from '@/components/HeartRateByWeek/HeartRateByWeek'
 import mockSportsee from "../data/mockSportsee.json";
@@ -107,11 +108,13 @@ const weeklyDistance = weeklySessions.reduce(
   0,
 )
   return (
-    <div>
-      <h1>Mon tableau de bord</h1>
-      
-      <PreviousWeekButton />
-      <WeekOffsetDisplay />
+    <main>
+      <DashboardHeader />
+      <div>
+        <h1>Mon tableau de bord</h1>
+        
+        <PreviousWeekButton />
+        <WeekOffsetDisplay />
       <div className={styles.performanceCharts}>
        <div className={styles.weeklyCard}> 
          <WeeklyDistanceByPeriod 
@@ -149,5 +152,5 @@ const weeklyDistance = weeklySessions.reduce(
         </div>
       </div>
     </div>
-
+    </main>
 )}
