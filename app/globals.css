@@ -1,12 +1,15 @@
 :root {
   --background: #F2F3FF;
   --foreground: #171717;
+  --sportsee-blue: #0B23F4;
 }
+
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+    --sportsee-blue: #0B23F4;
   }
 }
 
@@ -26,7 +29,7 @@ body {
   flex-direction: column;
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

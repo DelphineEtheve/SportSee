@@ -1,4 +1,4 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Inter } from "next/font/google";
 import ActivityPeriodProvider from "@/context/ActivityPeriodContext";
 import "./globals.css";
 
@@ -12,6 +12,11 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+})
+
 export const metadata = {
   title: "SPORTSEE",
   description: "Transformez vos stats en résultats",
@@ -19,7 +24,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="fr" className={`${geistSans.variable} ${geistMono.variable}`}>
+    <html lang="fr" className={`${inter.variable} `}>
       <body>
         <ActivityPeriodProvider>
           {children}

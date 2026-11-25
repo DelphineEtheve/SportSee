@@ -34,7 +34,7 @@
 
 .nav a:hover,
 .nav a:focus-visible {
-  color: #0B23F4;
+  color: var(--sportsee-blue);
   text-decoration: none;
 }
 
@@ -50,5 +50,5 @@
 .nav .logout {
   padding-left: 20px;
   border-left: 1px solid #cdd1ff;
-  color: #0B23F4;
+  color: var(--sportsee-blue);
 }

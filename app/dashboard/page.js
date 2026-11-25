@@ -1,5 +1,6 @@
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
+import Image from 'next/image'
 import styles from './page.module.css'
 import DashboardHeader from '@/components/DashboardHeader/DashboardHeader'
 import { PreviousWeekButton, WeekOffsetDisplay } from '@/components/ActivityPeriodTest/ActivityPeriodTest'
@@ -39,6 +40,10 @@ export default async function DashboardPage() {
 
   // Récupération des données de l'utilisateur depuis le fichier mockSportsee.json
   const {userActivity} = mockSportsee;
+
+  const { profile, statistics } = mockSportsee.userInfo
+  const lifeTimeDistance = String(statistics.totalDistance)
+
   const sessionS4 =userActivity.filter((session) => {
     return session.date >= "2024-12-30" && session.date <= "2025-01-05";
   }).reduce((total, session) => {
@@ -108,49 +113,96 @@ const weeklyDistance = weeklySessions.reduce(
   0,
 )
   return (
-    <main>
+   <div className={styles.dashboardContainer}> 
       <DashboardHeader />
-      <div>
-        <h1>Mon tableau de bord</h1>
-        
-        <PreviousWeekButton />
-        <WeekOffsetDisplay />
-      <div className={styles.performanceCharts}>
-       <div className={styles.weeklyCard}> 
-         <WeeklyDistanceByPeriod 
-          weeks={distanceWeeks} 
-          sessions={userActivity} 
-        />
-        </div>
-        <div className={styles.weeklyCard}>
-          <HeartRateByWeek 
-            weeks={weeks} 
-            sessions={userActivity} 
-          /> 
-        </div>
-      </div>
+      <main className={styles.dashboardMain}>
+         <h1 className={styles.visuallyHidden}>Tableau de bord</h1>
+
+          <div className={styles.dashboardIntro}>
+            <section className={styles.coachBanner} aria-label="Coach AI">
+              <p>
+                <Image
+                  src="/images/icone_ai.svg"
+                  alt=""
+                  width={20}
+                  height={20}
+                />
+                 Posez vos questions sur votre programme, vos performances ou vos objectifs.
+              </p>
+
+              <button type="button" className={styles.coachButton} disabled>
+                Lancer une conversation
+              </button>
+            </section>
+
+            <section className={styles.profileSummary} aria-label="Résumé du profil">
+              <div className={styles.profileIdentity}>
+                <div className={styles.profilePhoto} aria-hidden="true">
+                  <img className={styles.profileImage}
+                    src={profile.profilePicture}
+                    alt={`Photo de profil de l'utilisateur, ${profile.firstName} ${profile.lastName}`}
+                    
+                  />
+                </div>
+              
+                <div>
+                  <p className={styles.profileName}> {profile.firstName} {profile.lastName}</p>
+                  <p className={styles.profileSince}>Membre depuis le {new Date(profile.createdAt).toLocaleDateString('fr-FR', {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric',
+                    timeZone: 'UTC',
+                  })}</p>
+                </div>
+              </div>
+
+              <div className={styles.totalDistance}>
+                <p>Distance totale parcourue</p>
+                <strong>{lifeTimeDistance.endsWith('km') ? lifeTimeDistance : `${lifeTimeDistance} km`}</strong>
+              </div>
+            </section>
+          </div>
+
+          <div>
+            <h2>Vos dernières performances</h2>
+                      
+            <div className={styles.performanceCharts}>
+              <div className={styles.weeklyCard}> 
+                <WeeklyDistanceByPeriod 
+                  weeks={distanceWeeks} 
+                  sessions={userActivity} 
+                />
+              </div>
+
+              <div className={styles.weeklyCard}>
+                <HeartRateByWeek 
+                  weeks={weeks} 
+                  sessions={userActivity} 
+                /> 
+              </div>
+            </div>
+          </div>
       
 
-      <div className={styles.weeklyRunsContainer}>
-        <div className={styles.weeklyCard}>
-          <WeeklyRunsChart 
-            completedRuns={completedRuns} 
-            goal={weeklyGoal} 
-          />      
-        </div>
+          <div className={styles.weeklyRunsContainer}>
+            <div className={styles.weeklyCard}>
+              <WeeklyRunsChart 
+                completedRuns={completedRuns} 
+                goal={weeklyGoal} 
+              />      
+            </div>
       
-
-        <div className={styles.weeklyStats}>
-          <div className={styles.weeklyCard}> 
-            <h3>Durée de l'activité </h3>
-            <p>{weeklyDuration} minutes</p>
+            <div className={styles.weeklyStats}>
+              <div className={styles.weeklyCard}> 
+                <h3>Durée de l'activité </h3>
+                <p>{weeklyDuration} minutes</p>
+              </div>
+              <div className={styles.weeklyCard}>
+                <h3>Distance</h3>
+                <p>{weeklyDistance} km</p>
+              </div>
+            </div>
           </div>
-          <div className={styles.weeklyCard}>
-            <h3>Distance</h3>
-            <p>{weeklyDistance} km</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    </main>
+       </main>
+  </div>
 )}
